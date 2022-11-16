@@ -29,6 +29,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $firstname = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $lastname = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Vehicule $vehicule = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -116,5 +127,41 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstName(?string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastName(?string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getVehicule(): ?Vehicule
+    {
+        return $this->vehicule;
+    }
+
+    public function setVehicule(?Vehicule $vehicule): self
+    {
+        $this->vehicule = $vehicule;
+
+        return $this;
     }
 }
